@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package blog;
+
+option java_package = "com.proto.blog";
+
+option java_multiple_files = true;
+
+message Blog {
+    string id = 1;
+    string author_id = 2;
+    string title = 3;
+    string content = 4;
+}
+
+
+message CreateBlogRequest {
+    Blog blog = 1;
+}
+
+message CreateBlogResponse {
+    // Will return the id of Blog created in mongoDB
+    Blog blog = 1;
+}
+
+message ReadBlogRequest {
+    string id = 1;
+}
+
+message ReadBlogResponse {
+    Blog blog = 1;
+}
+
+message UpdateBlogRequest {
+    Blog blog = 1;
+}
+
+message UpdateBlogResponse {
+    Blog blog = 1;
+}
+
+message DeleteBlogRequest {
+    string blog_id = 1;
+}
+
+message DeleteBlogResponse {
+    string blog_id = 1;
+}
+
+message ListBlogRequest {
+
+}
+
+message ListBlogResponse {
+    Blog blog = 1;
+}
+
+service BlogService {
+    // Create a Blog by passing Blog message
+    rpc CreateBlog (CreateBlogRequest) returns (CreateBlogResponse) {
+    };
+
+    // Read blog using Id and get Blog object as response and return NOTFOUND if blog with that id is not found in DB
+    rpc ReadBlog (ReadBlogRequest) returns (ReadBlogResponse) {
+    };
+
+    // Update blog using Id and get Blog object as response and return NOTFOUND if blog with that id is not found in DB
+    rpc UpdateBlog (UpdateBlogRequest) returns (UpdateBlogResponse) {
+    };
+
+    // Delete blog using Id and get Blog object as response and return NOTFOUND if blog with that id is not found in DB
+    rpc DeleteBlog (DeleteBlogRequest) returns (DeleteBlogResponse) {
+
+    };
+
+    rpc ListBlog (ListBlogRequest) returns (stream ListBlogResponse) {
+    };
+}
